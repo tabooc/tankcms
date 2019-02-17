@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>{storm:$data}</title>
+</head>
+<body>
+<hr />
+{storm:foreach name=outer item=list from=$testarr}
+  {storm:section name=listc loop=$list}
+  姓名:{storm:$list[listc].username} : 有 {storm:$list[listc].count}条记录<br/>
+{storm:/section}
+{storm:/foreach}
+
+{storm:$key}
+</body>
+</html>

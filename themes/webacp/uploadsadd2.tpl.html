@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>添加记录</title>
+    <link href="css/main.css" rel="stylesheet" />
+</head>
+<body id="mainbox">
+    <div class="layout">
+        <div class="mianBaoXie">添加记录</div>
+        <div class="Cnt">
+            <div class="uploadstips"></div>
+            <div id="manualworkupload">
+                <form name="addfile" action="" method="post">
+                    <!-- text-common -->
+                    <p class="title-common">文件名：</p>
+                    <p>
+                        <input type="text" name="filename" class="text-common text-short" />
+                    </p>
+                    <P class="title-common">路径：请将文件统一放到网站目录的attached/down/目录下</P>
+                    <P>
+                        <input type="text" name="filepath" class="text-common text-long" value="../attached/down/文件名+后缀" />
+                    </P>
+                    <P class="title-common">简述：</P>
+                    <P>
+                        <textarea name="filedes" cols="80" rows="12" wrap="PHYSICAL" class="textarea-common"></textarea>
+                    </P>
+                    <input type="submit" name="addrecord" value="提交" class="submit-common" />
+                    <a href="?work=f" id="addfile" class="addfile">返回批量上传</a>
+                </form>
+                <br>
+                <br>
+                <br></div>
+        </div>
+    </div>
+</body>
+</html>

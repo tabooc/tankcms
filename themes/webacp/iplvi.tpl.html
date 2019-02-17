@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+    <title>ip访问限制设置</title>
+    <link href="css/main.css" rel="stylesheet" />
+    <script src="scripts/functions.js"></script>    
+  </head>
+  <body id="mainbox">
+    <div class="layout">
+      <div class="mianBaoXie">IP访问限制设置</div>
+      <div class="ipCnt">
+          <form method="post" action="" name="myipform">
+              <table width="100%" border="0" cellpadding="0" cellspacing="0" class="content_list">
+                <tr class="tb_header">
+                  <td width="100">ID</td>
+                  <td>IP地址</td>
+                  <td>访问限制</td>
+                </tr>
+                {storm:section name=list loop=$data}
+                <tr class="tb_list">
+                  <td align="left">
+                    <input type="checkbox" name="eng_id[]" id="eng_id[]" value="{storm:$data[list].id}" />
+                    {storm:$data[list].id}</td>
+                  <td align="left">{storm:$data[list].ipaddress}</td>
+                  <td align="left" width="120">{storm:if $data[list].iptype eq '1'}允许访问{storm:else}<font color="#FF0000">禁止访问</font>{storm:/if}</td>
+                </tr>
+                {storm:sectionelse}
+                <tr class="tb_list">
+                  <td align="left" colspan="3">没有记录！</td>
+                </tr>
+                {storm:/section}
+              </table>
+              <div class="cz">选择你的操作：<a onclick="javascript:window.location.reload()">刷新当前页面</a><a onclick="javascript:alls('eng_id[]')">全选</a>/<a onclick="javascript:resets('eng_id[]')">反选</a>
+                <input type="submit" name="iplvidel" value="删除选中项" id="logc" />                
+                <input type="submit" name="iplvino" value="禁止选中项" id="logc" />                
+                <input type="submit" name="iplviok" value="允许选中项" id="logc" />                
+                <a onclick="javascript:addIp()">添加IP</a>
+              </div>
+              <div class="fenye">{storm:$getpagedata}</div>
+              <div class="clear"></div>
+          </form>
+      </div>
+      <div class="addip" id="addip" style="display:none;">
+        <form method="post" action="" name="addIpForm" onsubmit="return check(addIpForm)">
+          <input type="text" name="adp" />
+          <select name="iplx"><option value="0">禁止访问</option><option value="1">授权访问</option></select>
+          <input type="submit" name="addip" value="提交" id="ipadd" /><input type="reset" name="rst" value="清除"  id="ipadd" /><a onclick="closeDiv()">取消操作</a>
+        </form>
+      </div>
+    </div>
+    <script>
+      function addIp(){
+        var ipDiv=document.getElementById("addip");
+        ipDiv.style.display='block';
+      }
+      function closeDiv(){
+        var ipDiv=document.getElementById("addip");
+        ipDiv.style.display='none';
+      }
+      function check(myform){
+        var str = myform.adp.value;
+        //alert(str);
+        var strlength= str.length;
+        if(strlength <1){
+          alert("输入的内容不能为空");
+          myform.adp.focus();
+          return false;
+        }else{
+          if(strlength>15||strlength <7)          //IP的字段长度的限制
+          {
+            alert("您输入的IP长度不正确，必须是7到15位");
+            myform.adp.focus();
+            return false;
+          }
+          var patrn =/^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/;//正则表达式，\d为数字,{1,3}一位或为三位.
+          if(!patrn.exec(str)){
+            alert("您输入的IP格式不正确，必须是000.000.000.000格式");
+            myform.adp.focus();
+            return false;
+          }
+          var laststr;
+          laststr= str.split(".");    //用.把字符串str分开
+          var last_patrn=/^\d{1,3}$/;
+          if(parseInt(laststr[0])>255||parseInt(laststr[1])>255||parseInt(laststr[2])>255||parseInt(laststr[3])>255) //判断IP每位的大小
+          {
+            alert("您输入的IP范围不正确，必须是0~255之间");
+            myform.adp.focus();
+            return false;
+          }
+          if(!last_patrn.exec(laststr[3]))
+          {
+            alert("您输入的IP格式不正确，必须是000.000.000.000格式");
+            myform.adp.focus();
+            return false;
+          }
+          return true;
+        }
+      }
+    </script>
+  </body>
+</html>

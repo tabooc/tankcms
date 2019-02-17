@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>文章搜索管理</title>
+  <link href="css/main.css" rel="stylesheet" />
+  <script>
+function checkkey(e){
+    if(e.keywords.value==''){
+         alert('搜索关键词不得为空');
+         e.keywords.focus();
+         return false;
+    }
+}
+</script>
+</head>
+<body id="mainbox">
+  <div class="layout">
+    <div class="mianBaoXie">
+        搜索 <font color="#FF0000"><strong>{storm:$keywords}</strong></font> 
+        的结果如下：
+    </div>
+    <div class="ipCnt">
+      <form method="post" action="" name="myipform">
+        <table width="100%" border="0" cellpadding="0" cellspacing="0" class="content_list">
+          <tr class="tb_header">
+            <td width="100">ID</td>
+            <td>文章标题</td>
+            <td width="80">文章类别</td>
+            <td width="80">作者</td>
+            <td width="80">发布时间</td>
+            <td width="50">状态</td>
+            <td width="35">置顶</td>
+            <td width="35">头条</td>
+            <td width="76">操作</td>
+          </tr>
+          {storm:section name=list loop=$data}
+          <tr class="tb_list">
+            <td align="left">
+              <input type="checkbox" name="eng_id[]" id="eng_id[]" value="{storm:$data[list].id}" />
+              {storm:$data[list].id}
+            </td>
+            <td align="left">{storm:$data[list].arttitle|truncate:"90"}</td>
+            <td align="left">{storm:$data[list].classname}</td>
+            <td align="left">{storm:$data[list].artauthor}</td>
+            <td align="left">{storm:$data[list].arttime|date_format:"%Y-%m-%d"}</td>
+            <td align="left">
+              {storm:if $data[list].artaudit eq '1'}已发布{storm:else} <font color='#FF0000'>待审核</font>
+              {storm:/if}
+            </td>
+            <td align="left">
+              {storm:if $data[list].artuptop eq '1'}
+              <font color='#FF0000'>是</font>
+              {storm:else}否{storm:/if}
+            </td>
+            <td align="left">
+              {storm:if $data[list].artfirst eq '1'}
+              <font color='#FF0000'>是</font>
+              {storm:else}否{storm:/if}
+            </td>
+            <td align="left">
+              <a href="{storm:$con}?aid={storm:$data[list].id}" >编辑文章</a>
+            </td>
+          </tr>
+          {storm:sectionelse}
+          <tr class="tb_list">
+            <td align="left" colspan="9">没有记录！</td>
+          </tr>
+          {storm:/section}
+        </table>
+        <div class="cz">
+              选择你的操作：
+              <a onclick="javascript:window.location.reload()">刷新当前页面</a>
+              <a href="{storm:$jump}">返回列表</a>
+            </div>
+        <div class="fenye">{storm:$getpagedata}</div>
+        <div class="clear"></div>
+    </form>
+  </div>
+</div>
+</body>
+</html>

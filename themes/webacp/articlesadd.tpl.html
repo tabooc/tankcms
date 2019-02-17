@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>添加文章</title>
+  <link href="css/main.css" rel="stylesheet" />
+  <script charset="utf-8" src="{storm:$smarty.const.__PLUGINS__}kindeditor-4.1.10/kindeditor.js"></script>
+  <script charset="utf-8" src="{storm:$smarty.const.__PLUGINS__}kindeditor-4.1.10/lang/zh_CN.js"></script>
+</head>
+<body id="mainbox">
+  <div class="layout">
+    <div class="mianBaoXie">添加文章</div>
+    <div class="Cnt">
+      <form method="post" action="" name="recForm" class="recform">
+        <div class="title-common">文章类别：</div>
+        <div>
+          <select name="arttype" class="sel-common">
+            {storm:section name=list loop=$typedata}
+            <option value="{storm:$typedata[list].id}">{storm:$typedata[list].classname}</option>
+            {storm:/section}
+          </select>
+        </div>
+        <div class="title-common">文章标题：建议勿超过35字</div>
+        <div>
+          <input type="text" class="text-common text-long" name="arttitle" />
+        </div>
+        <div class="title-common">作者：*可为空</div>
+        <div>
+          <input type="text" class="text-common text-short" maxlength="33" name="artauthor" value="{storm:$smarty.session.username}" />
+        </div>
+        <div class="title-common">来源：*可为空，标准示例：http://www.baidu.com/</div>
+        <div>
+          <input type="text" class="text-common text-short" name="artsource" />
+        </div>
+        <div class="title-common">外链：*可为空，标准示例：http://www.baidu.com/</div>
+        <div>
+          <input type="text" class="text-common text-short"  name="outlink" />
+        </div>
+        <div class="title-common">发布时间：*标准示例：2014-12-19 23:06:28</div>
+        <div>
+          <input type="text" class="text-common text-short" maxlength="33" name="arttime" value="{storm:$nowdate}" />
+        </div>
+        <div class="title-common">示意图：（ <font color="#FF0000">示意图区域禁止写入文字！</font>）</div>
+        <div>          
+          <script>
+            var editor;
+            KindEditor.ready(function(K) {
+              editor = K.create('textarea[name="artthumb"]', {
+                resizeType : 1,
+                allowPreviewEmoticons : false,
+                allowImageUpload : true,
+                          urlType:'relative',
+                items : ['source','image']
+              });
+            });
+          </script>
+          <textarea name="artthumb" cols="80" rows="12" wrap="PHYSICAL" id="artthumb"></textarea>
+        </div>
+          <div class="title-common">文章简述：</div>
+          <div>
+            <textarea name="artdescription" class="textarea-common textarea-short" wrap="PHYSICAL" id="artdescription"></textarea>
+          </div>
+          <div class="title-common">文章正文：</div>
+          <div>
+            <script>
+              var editor2;
+              KindEditor.ready(function(K) {
+                editor2 = K.create('textarea[name="artcontent"]', {
+                  resizeType : 1,
+                  allowPreviewEmoticons : false,
+                  allowImageUpload : true,
+                            urlType:'relative',
+                  items : [
+                'source', '|', 'fullscreen', 'undo', 'redo', 'cut', 'copy', 'paste',
+            'plainpaste', 'wordpaste', '|', 'justifyleft', 'justifycenter', 'justifyright',
+            'justifyfull', 'insertorderedlist', 'insertunorderedlist', 'indent', 'outdent', 'subscript',
+            'superscript', '|', 'selectall','fontname','fontsize', '/', 'forecolor', 'hilitecolor', 'quickformat','bold','italic', 'underline', 'strikethrough', 'removeformat', '|', 'image','multiimage',
+            'flash', 'media', 'advtable', 'hr', 'emoticons', 'link', 'unlink']
+                });
+              });
+            </script>
+            <textarea name="artcontent" cols="82" rows="25" wrap="PHYSICAL" id="artcontent"></textarea>
+          </div>
+            <div class="title-common">是否直接发布：</div>
+            <div>
+              <input type="radio" name="artaudit" value="1" checked="checked" />
+              是&nbsp;
+              <input type="radio" name="artaudit" value="0" />
+              否
+            </div>
+            <div class="cz">
+              <br>
+              <input type="submit" name="add" class="submit-common" value="提交" />
+            </div>
+          </form>
+        </div>
+        <br />
+        <br />
+        <br />
+      </div>
+</body>
+</html>

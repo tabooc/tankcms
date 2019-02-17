@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>大事记详情</title>
+  <link href="css/main.css" rel="stylesheet" />
+</head>
+<body id="mainbox">
+  <div class="layout">
+    <div class="mianBaoXie">大事记详情</div>
+    <div class="Cnt">
+      <form method="post" action="#" name="recForm" class="recform">
+        {storm:section name=con loop=$data}
+        <div class="title-common">大事记所属年份：</div>
+        <div>
+          <select name="coeyear" class="sel-common">
+            {storm:html_options values=$optionsvalues selected=$coeyearid output=$output}
+          </select>
+        </div>
+        <div class="title-common">大事记时间：*例如：2009年8月2日</div>
+        <div>
+          <input type="text" name="coedate" class="text-common text-short" maxlength="33" value="{storm:$data[con].coedate}" />
+        </div>
+        <div class="title-common">发布时间：*标准示例：2014-12-20 10:14:06</div>
+        <div>
+          <input type="text" name="coeupdate" class="text-common text-short" maxlength="33" value="{storm:$data[con].coeupdate}" />
+        </div>
+        <div class="title-common">大事记内容：</div>
+        <div>
+          <textarea name="coecontent" class="textarea-common" wrap="PHYSICAL">{storm:$data[con].coecontent}</textarea>
+        </div>
+        <div class="cz">
+          选择你的操作：
+          <a onclick="javascript:window.location.reload()">刷新当前页面</a>
+          <input type="submit" name="edit" value="提交" id="recbot" />
+          {storm:if $nextid neq ''}
+          <a href='?action=coecon&aid={storm:$nextid}'>查看下一条</a>
+          {storm:/if}{storm:if $previd neq ''}
+          <a href='?action=coecon&aid={storm:$previd}'>查看上一条</a>
+          {storm:/if}
+          <a href="{storm:$jump}">返回列表</a>
+        </div>
+        {storm:/section}
+      </form>
+    </div>
+  </div>
+</body>
+</html>

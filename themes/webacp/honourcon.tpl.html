@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>编辑集团荣誉</title>
+  <link href="css/main.css" rel="stylesheet" />
+</head>
+<body id="mainbox">
+  <div class="layout">
+    <div class="mianBaoXie">编辑集团荣誉</div>
+    <div class="Cnt">
+      <form method="post" action="#" name="recForm" class="recform">
+        <div class="title-common">集团荣誉时间：*例如：2011年8月2日</div>
+        <div>
+          <input type="text" name="rydate" class="text-common text-short" maxlength="33" value="{storm:$data.hondate}" />
+        </div>
+        <div class="title-common">发布时间：*标准示例：2011-08-02 10:59:33</div>
+        <div>
+          <input type="text" name="ryupdate" class="text-common text-short" maxlength="33" value="{storm:$data.honupdate}" />
+        </div>
+        <div class="title-common">集团荣誉内容：</div>
+        <div>
+          <textarea name="content" class="textarea-common" wrap="PHYSICAL">{storm:$data.honct}</textarea>
+        </div>
+        <div>
+          选择你的操作：
+          <input type="submit" name="uphonour" value="提交" id="recbot" />
+          {storm:if $nextid neq ''}
+          <a href='?action=questioncon&aid={storm:$nextid}'>查看下一条</a>
+          {storm:/if}{storm:if $previd neq ''}
+          <a href='?action=questioncon&aid={storm:$previd}'>查看上一条</a>
+          {storm:/if}
+          <a href="{storm:$jump}">返回列表</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

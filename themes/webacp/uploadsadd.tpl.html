@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>上传资料</title>
+    <link href="css/main.css" rel="stylesheet" />
+    <script src="scripts/jquery-2.2.4.min.js"></script>
+    <script src="{storm:$smarty.const.__PLUGINS__}uploadify-3.2.1/jquery.uploadify.js"></script>
+    <link rel="stylesheet" href="{storm:$smarty.const.__PLUGINS__}uploadify-3.2.1/uploadify.css"></head>
+<body id="mainbox">
+    <div class="layout">
+        <div class="mianBaoXie">上传资料</div>
+        <div class="Cnt">
+            <div class="uploadstips">
+                可上传的类型：gif、jpg、png、doc、docx、excel、xls、txt、rar、zip、7z、gz
+                <br>
+                当前服务器允许单个上传文件文件大小的最大值是：{storm:$upload_max_filesize}
+                <br>
+                超过服务器限制的请FTP上传后
+                <a href="?work=t" id="addfile" class="addfile">添加记录</a>
+            </div>
+            <div id="pluginsupload">
+                <form>
+                    <div id="queue"></div>
+                    <input id="file_upload" name="file_upload" type="file" multiple="true"></form>
+            </div>
+        </div>
+    </div>
+    <script>
+        window.onload = function(){
+            var i = 0;
+            var j = 0;
+            $('#file_upload').uploadify({
+                'fileTypeExts' : '*.gif; *.jpg; *.png;*.doc;*.docx;*.excel;*.xls;*.txt;*.rar;*.zip;*.7z;*.gz',
+                'removeCompleted': false,
+                'queueSizeLimit': 20,
+                'buttonText': '-选择文件-',
+                'swf': '{storm:$smarty.const.__PLUGINS__}uploadify-3.2.1/uploadify.swf',
+                'uploader': './uploads.php',
+                'onUploadSuccess': function(file, data, response) {
+                    i++;
+                    $("#queue").html(i + ' / ' + j);
+                },
+                'onSelect': function(file) {
+                    j++;
+                    $("#queue").html(i + ' / ' + j);
+                },
+                'onQueueComplete': function(queueData) {
+                   var info = queueData.uploadsSuccessful + ' 个文件已经上传成功！';
+
+                    window.location.href = 'msg.php?msg='+info+'&url={storm:$jump}&sec=3';
+                }
+
+            });
+
+        }
+
+    </script>
+</body>
+</html>

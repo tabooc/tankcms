@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>后台管理 - Powered by {storm:$smarty.const.COPYRIGHT}</title>
+  <meta name="Author" content="storm tabooc@gmail.com" />
+  <meta name="renderer" content="webkit" />
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+  <link rel="stylesheet" href="css/main.css" />
+</head>
+<body>
+  <div class="head">
+    <div class="navbox" id="J_navBox">
+      <ul class="nav" id="J_nav">
+        <li class="active">首页</li>
+        <li>内容</li>
+        <li>商品</li>
+        <li>文件</li>
+        <li>用户</li>
+        <li>工具</li>
+      </ul>
+    </div>
+    <div class="head_left">
+      <a href="{storm:$smarty.const.COPYRIGHTDOMAIN}" target="_blank">{storm:$smarty.const.COPYRIGHT}</a>
+    </div>
+    <div class="head_right">
+      Hi，{storm:$smarty.session.username}，你是： <strong>{storm:$userinfo.groupname}</strong>
+      &nbsp;&nbsp;|&nbsp;&nbsp;
+      <a href="outlogin.php">退出</a>
+    </div>
+  </div>
+  <div class="g-mainbox" id="J_mainBox">
+    <div id="J_leftmenu" class="m-leftmenu">
+      <ul class="m-menu">
+        <li>
+          <a href="default.php" target="contentFrame">首页</a>
+        </li>
+      </ul>
+      <ul class="m-menu">
+        <li>
+          <a href="articleslist.php" target="contentFrame">文章列表</a>
+        </li>
+        <li>
+          <a href="articlesedit.php" target="contentFrame">添加文章</a>
+        </li>
+        <li>
+          <a href="articlesclass.php" target="contentFrame">文章类别管理</a>
+        </li>
+        <li>
+          <a href="recmg.php" target="contentFrame">招聘列表</a>
+        </li>
+        <li>
+          <a href="recedit.php" target="contentFrame">添加招聘</a>
+        </li>
+        <li>
+          <a href="recclass.php" target="contentFrame">招聘类别管理</a>
+        </li>
+        <li>
+          <a href="coemg.php" target="contentFrame">大事记列表</a>
+        </li>
+        <li>
+          <a href="coeedit.php" target="contentFrame">添加大事记</a>
+        </li>
+        <li>
+          <a href="coeclass.php" target="contentFrame">大事记年份管理</a>
+        </li>
+        <li>
+          <a href="honourmg.php" target="contentFrame">集团荣誉列表</a>
+        </li>
+        <li>
+          <a href="honouredit.php" target="contentFrame">添加集团荣誉</a>
+        </li>
+      </ul>
+      <ul class="m-menu">
+        <li>
+          <a href="orderlist.php" target="contentFrame">订单列表</a>
+        </li>
+        <li>
+          <a href="goodslist.php" target="contentFrame">商品列表</a>
+        </li>
+        <li>
+          <a href="goodsadd.php" target="contentFrame">添加商品</a>
+        </li>
+        <li>
+          <a href="goodsclass.php" target="contentFrame">商品分类管理</a>
+        </li>
+      </ul>
+      <ul class="m-menu">
+        <li>
+          <a href="albumslist.php" target="contentFrame">相册列表</a>
+        </li>
+        <li>
+          <a href="albumsedit.php" target="contentFrame">添加相册</a>
+        </li>
+        <li>
+          <a href="albumsclass.php" target="contentFrame">相册分类管理</a>
+        </li>
+        <li>
+          <a href="uploadsmg.php" target="contentFrame">资料列表</a>
+        </li>
+        <li>
+          <a href="uploadsedit.php" target="contentFrame">上传资料</a>
+        </li>
+      </ul>
+      <ul class="m-menu">
+        <li>
+          <a href="authnodemg.php" target="contentFrame">权限节点列表</a>
+        </li>
+        <li>
+          <a href="authnodeedit.php" target="contentFrame">添加权限节点</a>
+        </li>
+        <li>
+          <a href="authgroupmg.php" target="contentFrame">用户权限组列表</a>
+        </li>
+        <li>
+          <a href='usermg.php' target='contentFrame'>用户列表</a>
+        </li>
+        <li>
+          <a href='useredit.php' target='contentFrame'>添加用户</a>
+        </li>
+        <li>
+          <a href="message.php" target="contentFrame">留言列表</a>
+        </li>
+      </ul>
+      <ul class="m-menu">
+        <li>
+          <a href='log.php' target='contentFrame'>登录日志</a>
+        </li>
+        <li>
+          <a href='updateCache.php' target='contentFrame'>更新网站缓存</a>
+        </li>
+        <li>
+          <a href='updateTemplates.php' target='contentFrame'>更新程序编译缓存</a>
+        </li>
+        <li>
+          <a href='iplvi.php' target='contentFrame'>IP访问限制设置</a>
+        </li>
+        <li>
+          <a href='databack.php' target='contentFrame'>数据库备份</a>
+        </li>
+      </ul>
+    </div>
+    <div class="g-rightbox" id="J_rightbox">
+      <iframe src="auto:blank" name="contentFrame" id="J_contentFrame" frameborder="0" width="100%" height="100%"></iframe>
+    </div>
+  </div>
+  <div class="m-foot">
+    Copyright © 2009~{storm:$year}<a href="{storm:$smarty.const.COPYRIGHTDOMAIN}" target="_blank" class="copyright">{storm:$smarty.const.COPYRIGHT}</a>
+    .All Rights Reserved.
+  </div>
+  <script src="scripts/jquery-2.2.4.min.js"></script>
+  <script src="scripts/functions.js"></script>
+  <script>
+      $(function(){
+
+          $("#J_nav > li").on("click",function(){
+            var $this = $(this),
+                index = $this.index(),
+                menu = $("#J_leftmenu > ul"),
+                targetMenu = menu.eq(index);
+
+            $this.addClass('active').siblings().removeClass('active');
+            menu.hide().eq(index).show();
+            targetMenu.children('li').removeClass('active').first().addClass('active').children('a')[0].click();
+          });
+
+          $(".m-menu a").on("click",function(){
+            $(this).parent().addClass('active').siblings().removeClass('active');
+          });
+
+          $("#J_mainBox").css({height:document.documentElement.offsetHeight - 122});
+
+          $("#J_nav > li").eq(0).trigger('click');
+
+
+          $(window).on("resize",function(){
+            $("#J_mainBox").css({height:document.documentElement.offsetHeight - 122});
+          });
+
+
+
+        //CODE END
+      });
+    </script>
+</body>
+</html>

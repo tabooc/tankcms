@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>编辑权限组</title>
+        <link href="css/main.css" rel="stylesheet" />
+        <script src="scripts/jquery-2.2.4.min.js"></script>
+    </head>
+    <body id="mainbox">
+        <div class="layout">
+            <div class="mianBaoXie">编辑权限组<span class="tips red_font">(注意：超级管理员组不受权限限制!)</span></div>
+            <div class="Cnt">
+                <div style="height:10px;"></div>
+                <form method="post" action="" name="recForm" class="recform">
+                    <div class="title-common">权限组名称</div>
+                    <div><input type="text" name="groupname" class="text-common text-short" value="{storm:$authgroupcon.groupname}" /></div>
+                    <div class="title-common">权限分配</div>
+                    {storm:$str}
+                    <br/>
+                    <div class="cz"><input type="submit" class="submit-common" name="update" value="提交" />
+                    </div>
+                </form>
+            </div>
+            <br /><br /><br />
+        </div>
+        <script>
+            $(function() {
+
+                $(":checkbox").click(function() {
+
+                    var parent = $(this).parent();
+                    var root = $(this).parents('.nodelist');
+                    var hasul = $(this).parent().has('ul').length;
+
+                    //选中当前节点下所有的下级节点
+                    if (this.checked == true) {
+                        parent.find(":checkbox").each(function() {
+                            this.checked = true;
+                        });
+                    } else {
+                        parent.find(":checkbox").each(function() {
+                            this.checked = false;
+                        });
+                    }
+
+                    //最末节点选中时候，给父级添加选中状态
+                    if(hasul==0 && $(this).is(":checked")){
+                        $(this).parent().parent().prev()[0].checked = true;
+                    }
+
+
+                    var count =root.find(":checkbox").size();
+                    var countcheck =root.find(":checkbox:checked").size();
+
+                     //根据子节点选中数量判断根节点应属于何种状态
+                    if(countcheck == 1){
+                        if(root.find(":checkbox")[0].checked == true){
+                            if(count > 1){
+                                root.find(":checkbox")[0].checked = false;
+                            }
+
+                        }else{
+                            root.find(":checkbox")[0].checked = true;
+                        }
+                    }
+
+                    if(countcheck >1 ){
+                        root.find(":checkbox")[0].checked = true;
+                    }
+
+
+
+                });
+
+                //JQ CODE END
+            });
+        </script>
+    </body>
+</html>

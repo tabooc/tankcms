@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>用户资料编辑</title>
+  <link href="css/main.css" rel="stylesheet" />
+  <script>
+  function checkuser(myForm){
+    if(myForm.usr.value==""){
+      alert('用户名不得为空!');myForm.usr.focus();return false;
+      }
+      if(myForm.oldpwd.value==""){
+        alert('原密码不得为空!');myForm.oldpwd.focus();return false;
+        }
+      if(myForm.pwd.value==""){
+        alert('新密码不得为空!');myForm.pwd.focus();return false;
+        }
+        if(myForm.pwd.value.length<6){
+          alert('新密码不得少于六位!');myForm.pwd.focus();return false;
+          }
+          if(myForm.pwd.value!=myForm.pwd2.value){
+            alert('两次输入的密码不一致!');myForm.pwd.focus();return false;
+            }
+
+    }
+  </script>
+</head>
+<body id="mainbox">
+  <div class="layout">
+    <div class="mianBaoXie">用户资料编辑</div>
+    <div class="Cnt" id="adduser">
+      <form method="post" action="" name="useraddform" onsubmit="return checkuser(useraddform)">
+        <div class="title-common">用户类型：</div>
+        <div>
+          <select name="userty" class="sel-common">
+            {storm:if $smarty.session.usertype eq 1}
+             {storm:section name=list loop=$groupdata}
+            <option value="{storm:$groupdata[list].id}" {storm:if $data.usertype eq $groupdata[list].id}selected{storm:/if}>{storm:$groupdata[list].groupname}</option>
+            {storm:/section}
+             {storm:else}
+            <option value="{storm:$data.usertype}">{storm:$data.groupname}</option>
+            {storm:/if}
+          </select>
+        </div>
+        <div class="title-common">用户名：</div>
+        <div>
+          <input type="hidden" name="userid" value="{storm:$data.id}" />
+          <input type="text" name="usr" maxlength="32" class="text-common text-short" value="{storm:$data.username}" />
+        </div>
+        <div class="title-common">原密码：</div>
+        <div>
+          <input type="password" name="oldpwd" maxlength="16" class="text-common text-short" />
+        </div>
+        <div class="title-common">新密码：</div>
+        <div>
+          <input type="password" name="pwd" maxlength="16" class="text-common text-short" />
+        </div>
+        <div class="title-common">确认新密码：</div>
+        <div>
+          <input type="password" name="pwd2" class="text-common text-short" />
+        </div>
+        <div class="title-common">用户状态：</div>
+        <div>
+          <select name="userst" class="sel-common">
+            {storm:if $data.userstatus eq '1'}
+            <option value='1'>授权访问</option>
+            <option value='0'>禁止访问</option>
+            {storm:else}
+            <option value='0'>禁止访问</option>
+            <option value='1'>授权访问</option>
+            {storm:/if}
+          </select>
+        </div><br>
+        <div class="cz">
+          <input type="submit" name="addsub" value="提交" class="submit-common" />
+          <a href="{storm:$jump}">取消编辑</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

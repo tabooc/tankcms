@@ -1,0 +1,11 @@
+User-agent: *
+Disallow: /webacp/
+Disallow: /engine/
+Disallow: /themes/
+Disallow: /control/
+Disallow: /public/plugins/
+Disallow: /runtime/
+Disallow: /conf/
+Disallow: .bak$
+Disallow: .mp3$
+Disallow: .flv$

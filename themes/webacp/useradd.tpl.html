@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>添加用户</title>
+  <link href="css/main.css" rel="stylesheet" />
+  <script>
+      function checkuser(myForm){
+        if(trim(myForm.usr.value)==""){
+          alert('用户名不得为空!');myForm.usr.focus();return false;
+        }
+        if(trim(myForm.pwd.value)==""){
+          alert('密码不得为空!');myForm.pwd.focus();return false;
+        }
+        if(trim(myForm.pwd.value).length<6){
+          alert('密码不得少于六位!');myForm.pwd.focus();return false;
+        }
+        if(myForm.pwd.value!=myForm.pwd2.value){
+          alert('两次输入的密码不一致!');myForm.pwd2.focus();return false;
+        }
+
+      }
+      function trim(str){
+        return rtrim(ltrim(str));
+      }
+
+      //去掉字符串左边的空格
+      function ltrim(s){
+        if(s == null) return "";
+        var whitespace = new String(" \t\n\r");
+        var str = new String(s);
+        if (whitespace.indexOf(str.charAt(0)) != -1) {
+          var j=0, i = str.length;
+          while (j < i && whitespace.indexOf(str.charAt(j)) != -1){
+            j++;
+          }
+          str = str.substring(j, i);
+        }
+        return str;
+      }
+
+      //去掉字符串右边的空格
+      function rtrim(s){
+        if(s == null) return "";
+        var whitespace = new String(" \t\n\r");
+        var str = new String(s);
+        if (whitespace.indexOf(str.charAt(str.length-1)) != -1){
+          var i = str.length - 1;
+          while (i >= 0 && whitespace.indexOf(str.charAt(i)) != -1){
+            i--;
+          }
+          str = str.substring(0, i+1);
+        }
+        return str;
+      }
+    </script>
+</head>
+<body id="mainbox">
+  <div class="layout">
+    <div class="mianBaoXie">添加用户</div>
+    <div class="Cnt">
+      <form method="post" action="" name="useraddform" onsubmit="return checkuser(useraddform)">
+        <div class="title-common">用户类型：</div>
+        <div>
+          <select name="userty" class="sel-common">
+            {storm:section name=list loop=$groupdata}
+            <option value="{storm:$groupdata[list].id}">{storm:$groupdata[list].groupname}</option>
+            {storm:/section}
+          </select>
+        </div>
+        <div class="title-common">用户名：</div>
+        <div>
+          <input type="text" name="usr" maxlength="32" class="text-common text-short" />
+        </div>
+        <div class="title-common">密码：</div>
+        <div>
+          <input type="password" name="pwd" maxlength="16" class="text-common text-short" />
+        </div>
+        <div class="title-common">确认密码：</div>
+        <div>
+          <input type="password" name="pwd2" class="text-common text-short" />
+        </div>        
+        <div class="title-common">用户状态：</div>
+        <div>
+          <select name="userst" class="sel-common">
+            <option value='1'>允许访问</option>
+            ";
+            <option value='0'>禁止访问</option>
+            ";
+          </select>
+        </div>
+        <br>
+        <div class="cz">        
+          <input type="submit" name="addsub" value="提交" class="submit-common" />
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

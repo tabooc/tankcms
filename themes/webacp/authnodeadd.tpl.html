@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>添加权限节点</title>
+  <link href="css/main.css" rel="stylesheet" />
+</head>
+<body id="mainbox">
+  <div class="layout">
+    <div class="mianBaoXie">添加权限节点</div>
+    <div class="Cnt">
+      <form method="post" action="" name="recForm" class="recform">
+        <div class="title-common">父节点：</div>
+        <div>
+          <select name="nodefid" class="sel-common">
+            <option value="0">根节点</option>
+            {storm:section name=list loop=$data}
+            <option value="{storm:$data[list].id}">{storm:$data[list].nodename}</option>
+            {storm:/section}
+          </select>
+        </div>
+        <div class="title-common">权限节点名称：*例如：文章管理</div>
+        <div>
+          <input type="text" name="nodename" class="text-common text-short" maxlength="33" />
+        </div>
+        <div class="title-common">权限节点标记：*例如：articleslist</div>
+        <div>
+          <input type="text" name="nodemark" class="text-common text-short" maxlength="33" />
+        </div>
+        <div class="title-common">权限节点简述：</div>
+        <div>
+          <textarea name="nodedes" class="textarea-common"  cols="80" rows="5" wrap="PHYSICAL"></textarea>
+        </div>        
+        <div class="cz">
+          <br>
+          <input type="submit" class="submit-common" name="add" value="提交" />
+          <a href="{storm:$jump}">返回列表</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

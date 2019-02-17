@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>留言详情查看</title>
+  <link href="css/main.css" rel="stylesheet" />
+</head>
+<body id="mainbox">
+  <div class="layout">
+    <div class="mianBaoXie">留言详情</div>
+    <div class="Cnt">
+      <div class="title-common">留言者：</div>
+      <div class="flashy">{storm:$data.meguser}</div>
+      <div class="title-common">联系邮箱：</div>
+      <div class="flashy">{storm:$data.megemail|default:'留言者未留下邮箱'}</div>
+      <div class="title-common">联系电话：</div>
+      <div class="flashy">{storm:$data.megtel|default:'留言者未留下邮箱'}</div>
+      <div class="title-common">留言时间：</div>
+      <div class="flashy">{storm:$data.megtime}</div>
+      <div class="title-common">留言状态：</div>
+      <div class="flashy">
+        {storm:if $data.megstate eq '1'}已读{storm:else} <font color='#FF0000'>未读</font>
+        {storm:/if}
+      </div>
+      <div class="title-common">留言内容：</div>
+      <div class="flashy">{storm:$data.megcontent}</div>
+      <div class="cz">
+        选择你的操作：
+        <a href="?action=msgcon&want=del&aid={storm:$data.id}">删除此留言</a>
+        {storm:if $nextid neq ''}
+        <a href='?action=msgcon&aid={storm:$nextid}'>查看下一条</a>
+        {storm:/if}{storm:if $previd neq ''}
+        <a href='?action=msgcon&aid={storm:$previd}'>查看上一条</a>
+        {storm:/if}
+      </div>
+
+    </div>
+  </div>
+</body>
+</html>

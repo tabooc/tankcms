@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>添加大事记</title>
+  <link href="css/main.css" rel="stylesheet" />
+</head>
+<body id="mainbox">
+  <div class="layout">
+    <div class="mianBaoXie">添加大事记</div>
+    <div class="Cnt">
+      <form method="post" action="#" name="recForm" class="recform">
+        <div class="title-common">大事记所属年份：</div>
+        <div>          
+          <select name="coeyear" class="sel-common">
+            {storm:section name=ylist loop=$yeardata}
+            <option value="{storm:$yeardata[ylist].id}">{storm:$yeardata[ylist].coeyear}</option>
+            {storm:/section}
+          </select>
+        </div>
+        <div class="title-common">大事记时间：*例如：2009年8月2日</div>
+        <div>          
+          <input type="text" name="coedate" class="text-common text-short" maxlength="33" />          
+        </div>
+        <div class="title-common">发布时间：*标准示例：2014-12-20 10:14:06</div>
+        <div>          
+          <input type="text" name="coeupdate" class="text-common text-short" value="{storm:$nowdate}" />          
+        </div>        
+        <div class="title-common">大事记内容：</div>
+        <div>          
+          <textarea name="coecontent" class="textarea-common" wrap="PHYSICAL"></textarea>
+        </div>
+        <div class="cz">
+          <input type="submit" name="add" value="提交" class="submit-common" />
+          <a href="{storm:$jump}">返回列表</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

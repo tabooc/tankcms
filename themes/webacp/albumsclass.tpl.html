@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+    <title>相册分类</title>
+    <link href="css/main.css" rel="stylesheet" />
+    <script src="scripts/functions.js"></script>    
+  </head>
+  <body id="mainbox">
+    <div class="layout">
+      <div class="mianBaoXie">相册分类<span class="tips red_font">(注意：删除分类的同时将删除当前分类所拥有的所有图册和图片!)</span></div>
+      <div class="Cnt">
+          <form method="post" action="" name="myipform">
+              <table width="100%" border="0" cellpadding="0" cellspacing="0" class="content_list">
+                <tr class="tb_header">
+                  <td width="100">ID</td>
+                  <td>名称</td>
+                  <td width="100">排序标记</td>
+                  <td width="100">操作</td>
+                </tr>
+                {storm:section name=list loop=$data}
+                <tr class="tb_list">
+                  <td align="left">
+                    <input type="checkbox" name="eng_id[]" id="eng_id[]" value="{storm:$data[list].id}" />
+                    {storm:$data[list].id}</td>
+                  <td align="left">{storm:$data[list].cname}</td>
+                  <td align="left">{storm:$data[list].csort}</td>
+                  <td align="left"><a href="javascript:editclass({storm:$data[list].id},'{storm:$data[list].cname}',{storm:$data[list].csort})">编辑分类</a></td>
+                </tr>
+                {storm:sectionelse}
+                <tr class="tb_list">
+                  <td align="left" colspan="4">没有记录！</td>
+                </tr>
+                {storm:/section}
+              </table>
+              <div class="cz">选择你的操作：<a onclick="javascript:window.location.reload()">刷新当前页面</a><a onclick="javascript:alls('eng_id[]')">全选</a>/<a onclick="javascript:resets('eng_id[]')">反选</a>
+                <input type="submit" name="del" value="删除选中项" id="logc" />                
+                <a onclick="javascript:addrecclass('addclass')">添加分类</a>
+              </div>
+              <div class="fenye">{storm:$getpagedata}</div>
+              <div class="clear"></div>
+          </form>
+      </div>
+<!--添加文章类型 -->
+      <div class="addip" id="addclass" style="display:none;">
+        <form method="post" action="" name="addclassForm" onsubmit="return check(addclassForm)">
+          名称：<input type="text" name="adp" maxlength="21" />
+          排序：<input type="text" name="typept" maxlength="6" />
+          <input type="submit" name="addclass" value="提交" id="ipadd" /><input type="reset" name="rst" value="清除"  id="ipadd" /><a onclick="closeDiv('addclass')">取消操作</a>
+        </form>
+      </div>
+      <!--编辑类型-->
+      <div class="addip" id="editclass" style="display:none;">
+        <form method="post" action="" name="editclassForm" onsubmit="return check2(this)">
+          <input type="hidden" name="classid" id="classid" value="" />
+          名称：<input type="text" name="editadp" id="editadp" maxlength="27" />
+          排序：<input type="text" name="edittypept" id="edittypept" maxlength="6" />
+          <input type="submit" name="editclass" value="提交" id="ipadd" /><input type="reset" name="rst" value="清除"  id="ipadd" /><a onclick="closeDiv('editclass')">取消操作</a>
+        </form>
+      </div>
+    </div>
+    <script>
+      function check(w){
+        if(w.adp.value==""){
+          alert("类型不得为空");w.adp.focus();return false;
+        }
+        if(w.typept.value=="" || isNaN(w.typept.value)){
+          alert("编号不得为空且必须为阿拉伯数字!");w.typept.focus();return false;
+        }
+      }
+      function check2(w){
+        if(w.editadp.value==""){
+          alert("类型不得为空");w.editadp.focus();return false;
+        }
+        if(w.edittypept.value=="" || isNaN(w.edittypept.value)){
+          alert("编号不得为空且必须为阿拉伯数字!");w.edittypept.focus();return false;
+        }
+      }
+      function editclass(a,b,c){
+        addrecclass('editclass');
+        var classid=document.getElementById("classid");
+        var editadp=document.getElementById("editadp");
+        var edittypept=document.getElementById("edittypept");
+
+        classid.setAttribute("value",a);
+        editadp.setAttribute("value",b);
+        edittypept.setAttribute("value",c);
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>编辑权限节点</title>
+  <link href="css/main.css" rel="stylesheet" />
+</head>
+<body id="mainbox">
+  <div class="layout">
+    <div class="mianBaoXie">编辑权限节点</div>
+    <div class="Cnt">
+      <form method="post" action="#" name="recForm" class="recform">
+        <div class="title-common">父节点：</div>
+        <div>
+          <select name="nodefid" class="sel-common">
+            <option value="0">根目录</option>
+            {storm:section name=list loop=$ndata}
+            <option value="{storm:$ndata[list].id}" {storm:if $data.nodefid eq $ndata[list].id}selected{storm:/if}>{storm:$ndata[list].nodename}</option>
+            {storm:/section}
+          </select>
+        </div>
+        <div class="title-common">权限节点名称：*例如：文章管理</div>
+        <div>
+          <input type="text" name="nodename" class="text-common text-short" maxlength="33" value="{storm:$data.nodename}" />
+        </div>
+        <div class="title-common">权限节点标记：*例如：articleslist</div>
+        <div>
+          <input type="text" name="nodemark" class="text-common text-short" maxlength="33" value="{storm:$data.nodemark}" />
+        </div>
+        <div class="title-common">权限节点简述：</div>
+        <div>
+          <textarea name="nodedes" class="textarea-common" wrap="PHYSICAL">{storm:$data.nodedes}</textarea>
+        </div>
+        <div class="cz">
+          选择你的操作：
+            <a onclick="javascript:window.location.reload()">刷新当前页面</a>
+            <input type="submit" name="up" value="提交" id="recbot" />
+            {storm:if $nextid neq ''}
+            <a href='?aid={storm:$nextid}'>查看下一条</a>
+            {storm:/if}{storm:if $previd neq ''}
+            <a href='?aid={storm:$previd}'>查看上一条</a>
+            {storm:/if}
+            <a href="{storm:$jump}">返回列表</a>
+          </div>
+        </form>
+      </div>
+    </div>
+</body>
+</html>

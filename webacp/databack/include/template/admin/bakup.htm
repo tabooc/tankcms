@@ -1,0 +1,187 @@
+<!--<?php
+
+print <<<EOT
+-->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>MYSQL数据备份</title>
+<style>
+body{margin-top: 5px;margin-bottom: 15px;background:#FFFFFF;font-size: 12px;line-height: 18px;color: #000000;text-decoration: none;font-family:'宋体',Arial, Helvetica, sans-serif;}
+table{font-size:12px;}
+a{TEXT-DECORATION: none;color:blue;}
+a:hover { color:blue; TEXT-DECORATION:underline;}
+.tablebk tr th{	height:26px;color:#000000;font-size: 12px;font-weight:bold;background: #eef3f7; text-align:left;}
+.table_titlebg{margin-left:10px;}
+.tablebk{background-color: #CCCCCC;}
+.table_trbg02{background-color: #FFFFFF;}
+.table_trbg02 ul{margin: 0;padding: 10px;list-style: none;}
+.table_trbg02 ul li{height: 20px;line-height: 20px;}
+</style>
+<script>
+ifcheck = true;
+function CheckAll(form)
+{
+	for (var i=0;i<form.elements.length-2;i++)
+	{
+		var e = form.elements[i];
+		e.checked = ifcheck;
+	}
+	ifcheck = ifcheck == true ? false : true;
+}
+</script>
+</head>
+<body>
+
+<table width=99% align=center cellspacing=1 cellpadding=3 class=tablebk>
+  <tr>
+      <th><div class="table_titlebg"><img src="images/icon02.gif" align="absmiddle" /> 操作菜单</div></th>
+  </tr>
+  <tr>
+    <td height="25" valign="middle" class=table_trbg02> <a href="?a_type=bakout" target="_self">备份数据</a>  <a href="?a_type=bakin" target="_self">还原数据</a> </td>
+  </tr>
+</table>
+<br>
+<table width=99% align=center cellspacing=1 cellpadding=3 class=tablebk>
+<tr>
+      <th><div class="table_titlebg"><img src="images/icon02.gif" align="absmiddle" />提示信息</div></th>
+  </tr>
+<tr><td class=table_trbg02>
+<ul>
+<!--
+EOT;
+if($a_type=='bakout'){
+ print <<<EOT
+-->
+<li>可以根据自己的需要选择需要备份的数据库表,导出的数据文件可用"数据恢复"功能。</li>
+<li>为了数据安全,备份文件采用时间戳命名保存,如果备份数据超过设定的大小程序会自动采用分卷备份功能，请耐心等待直到程序提示全部备份完成。</li>
+<li>附件的备份只需手工转移附件目录和文件即可,风格备份也同!</li>
+<!--
+EOT;
+}elseif($a_type=='bakin'){
+ print <<<EOT
+-->
+<li>本功能在恢复备份数据的同时,将覆盖原有数据,请确定是否需要恢复,以免造成数据损失。</li>
+<li>数据恢复功能只能恢复由当前版本导出的数据文件,其他软件导出格式可能无法识别。</li>
+<li><span style="color:#FF0000">如果一个备份文件有多个分卷，只需任选一个备份文件导入，程序会自动导入其他分卷</span></li>
+<!--
+EOT;
+}print <<<EOT
+-->
+</ul>
+</td></tr></table>
+<br>
+<!--
+EOT;
+if($a_type=='bakout'){
+ print <<<EOT
+-->
+
+
+<form action="$basename" method=post>
+<input type=hidden name="action" value="bakout">
+<table width=99% align=center cellspacing=1 cellpadding=3 class=tablebk>
+<tr>
+      <th colspan="3"><div class="table_titlebg"><img src="images/icon02.gif" align="absmiddle" /> 数据库表</div></th>
+  </tr>
+<tr>
+<td class=table_trbg02 width="5%" align=center>ID</td>
+<td class=table_trbg02>数据库表</td>
+<td class=table_trbg02 width="10%" align=center>选择</td>
+</tr>
+<!--
+EOT;
+$id=0;
+foreach($othortable as $key=>$table){
+$id++;
+print <<<EOT
+-->
+<tr>
+<td class=table_trbg02 align=center>$id</td>
+<td class=table_trbg02>$table</td>
+<td class=table_trbg02 align=center><input type=checkbox name=tabledb[] value=$table></td>
+</tr>
+<!--
+EOT;
+}print <<<EOT
+-->
+<tr><td class=table_trbg02 colspan=3><b>分卷备份</b></td></tr>
+<tr class=b><td colspan=3 class="table_trbg02"><input type=text name="sizelimit" value="2048" size=5> 每个分卷文件长度(KB)</td></tr>
+</table>
+<br><center>
+<input type="button" name="chkall" value="全 选" onClick="CheckAll(this.form)">
+<input type=submit value="提 交"></center></form>
+
+<!--
+EOT;
+}elseif($a_type=='bakin'){
+if(!$action){print <<<EOT
+-->
+<form method="post" action="$basename">
+<table width=99% align=center cellspacing=1 cellpadding=3 class=tablebk>
+<tr>
+      <th colspan="6"><div class="table_titlebg"><img src="images/icon02.gif" align="absmiddle" /> 数据备份文件</div></th>
+  </tr>
+<tr class=head_2 align=center><td width=3% class="table_trbg02">ID</td>
+<td width=35% class="table_trbg02">文件名</td><td width=15% class="table_trbg02">版本</td>
+<td class="table_trbg02">备份时间</td><td width=5% class="table_trbg02">卷号</td><td class="table_trbg02">删</td>
+</tr>
+<!--
+EOT;
+foreach($filedb as $id=>$bakfile){
+$id++;
+print <<<EOT
+-->
+<tr class=b align=center>
+<td class="table_trbg02">$id</td>
+<td class="table_trbg02"><a href="data/$bakfile[name]">$bakfile[name]</a></td>
+<td class="table_trbg02">$bakfile[version]</td>
+<td class="table_trbg02">$bakfile[time]</td><td class="table_trbg02">$bakfile[num]</td>
+<td class="table_trbg02"><input name="delfile[]" type=checkbox value="$bakfile[name]"></td>
+</tr>
+<!--
+EOT;
+}print <<<EOT
+-->
+</table>
+<input name=action type=hidden value="del">
+<br><center>
+<input type="button" name="chkall" value="全 选" onClick="CheckAll(this.form)">
+<input type="button" name="button" id="button" value="导入" onClick="javascript:window.location.href='$basename&action=bakincheck&pre=$bakfile[pre]'">
+<input type="submit" name="delete" value="删除备份" onClick="return checkset('此功能不可恢复,您确认要删除选中的备份文件！');">
+</center>
+</form>
+<script language=JavaScript>
+function checkset(confirm_info)
+{
+	if(confirm(confirm_info)){
+		return true;
+	} else {
+		return false;
+	}
+}
+</script>
+<!--
+EOT;
+}elseif($action=='bakincheck'){
+print <<<EOT
+-->
+<form action="$basename&action=bakin&pre=$pre" method="post">
+<table width="99%" align=center cellspacing=1 cellpadding=3 class=tablebk>
+<tr>
+      <th><div class="table_titlebg"><img src="images/icon02.gif" align="absmiddle" /> 提示信息</div></th>
+  </tr>
+<tr><td height="40" class=table_trbg02><font color="blue">  备份恢复功能将覆盖原来的数据,您确认要导入备份数据！<br />
+</font></td></tr></table>
+<br>
+<center>
+  <span class="table_trbg02">
+  <input type="submit" value="确认导入备份" />
+  </span>&nbsp;
+  <input type='button' value='返 回 继 续 操 作' onclick='javascript:history.go(-1);'></center><br>
+</form>
+<!--
+EOT;
+}}
+?>-->

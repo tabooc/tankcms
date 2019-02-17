@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>相册详情</title>
+<link href="css/main.css" rel="stylesheet" />
+</head>
+<body id="mainbox">
+<div class="layout">
+  <div class="mianBaoXie">相册详情</div>
+  <div class="Cnt">
+    <div class="editcon">
+        <form action="" method="post">
+            <!-- text-common -->
+            <p class="title-common">所属分类</p>
+            <p>
+                <select name="aid" class="sel-common">
+{storm:section name=list loop=$typedata}
+             <option value="{storm:$typedata[list].id}" {storm:if $data.aid eq $typedata[list].id }selected{storm:/if}>{storm:$typedata[list].cname}</option>
+{storm:/section}
+            </select>
+            </p>
+            <p class="title-common">名称：</p>
+            <p><input type="text" name="aname" class="text-common text-short" value="{storm:$data.aname}" /></p>
+            <P class="title-common">排序：序号越大越靠前</P>
+            <P><input type="text" name="asort" class="text-common text-long" value="{storm:$data.asort}" /></P>
+            <P class="title-common">简介：</P>
+            <P><textarea name="ades" cols="80" rows="12" wrap="PHYSICAL" class="textarea-common">{storm:$data.ades}</textarea></P>
+            <input type="submit" name="update" value="提交" class="submit-common" />
+        </form>
+        <br>
+        <br>
+        <br>
+    </div>
+  </div>
+</div>
+</body>
+</html>
